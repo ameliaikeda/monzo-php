@@ -1,5 +1,7 @@
 # Monzo PHP bindings
 
+[![Build Status](https://travis-ci.org/ameliaikeda/monzo-php.svg?branch=master)](https://travis-ci.org/ameliaikeda/monzo-php)
+
 This library allows access to the [Monzo](https://monzo.com) API in PHP. This library requires PHP 7.0+.
 
 ## Installation
@@ -163,3 +165,14 @@ $transactions = $monzo->as($user)
     ->expand('account')
     ->transactions('acc_12341243');
 ```
+
+### See a user's balance
+
+```php
+<?php
+
+$user = App\User::findOrFail($id);
+
+$balance = $monzo->as($user)->balance();
+```
+
