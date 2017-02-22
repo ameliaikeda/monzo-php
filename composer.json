@@ -11,6 +11,7 @@
     ],
     "minimum-stability": "stable",
     "require": {
+        "php": ">=7.0",
         "illuminate/support": "~5.4",
         "guzzlehttp/guzzle": "^6.2"
     },
