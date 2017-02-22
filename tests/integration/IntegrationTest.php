@@ -65,8 +65,6 @@ class AccountsTest extends TestCase
             ->take(25)
             ->transactions();
 
-        dd($transactions);
-
         $this->assertInstanceOf(Collection::class, $transactions);
 
         $this->assertContainsOnly(Transaction::class, $transactions);
