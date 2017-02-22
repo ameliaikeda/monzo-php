@@ -1,0 +1,39 @@
+
+-
+    request:
+        method: GET
+        url: 'https://api.monzo.com/transactions?limit=1&since=2016-01-01T00%3A00%3A00Z&account_id=acc_test'
+        headers:
+            Host: api.monzo.com
+            Accept: application/json
+            Authorization: 'Bearer valid-access-token'
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            Date: 'Wed, 22 Feb 2017 19:11:27 GMT'
+            Content-Type: application/json
+            Content-Length: '551'
+            Connection: keep-alive
+        body: '{"transactions":[{"id":"tx_test","created":"2016-04-14T10:01:13.61Z","description":"Initial top up","amount":10000,"currency":"GBP","merchant":null,"notes":"","metadata":{},"account_balance":10000,"attachments":[],"category":"mondo","is_load":true,"settled":"2016-04-14T10:01:13.61Z","local_amount":10000,"local_currency":"GBP","updated":"2016-04-14T10:01:13.774Z","account_id":"acc_test","counterparty":{},"scheme":"gps_mastercard","dedupe_id":"372988965103972824","originator":false,"include_in_spending":false}]}'
+-
+    request:
+        method: GET
+        url: 'https://api.monzo.com/transactions/tx_test?expand%5B0%5D=merchant'
+        headers:
+            Host: api.monzo.com
+            Accept: application/json
+            Authorization: 'Bearer valid-access-token'
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            Date: 'Wed, 22 Feb 2017 19:11:28 GMT'
+            Content-Type: application/json
+            Content-Length: '548'
+            Connection: keep-alive
+        body: '{"transaction":{"id":"tx_test","created":"2016-04-14T10:01:13.61Z","description":"Initial top up","amount":10000,"currency":"GBP","merchant":null,"notes":"","metadata":{},"account_balance":10000,"attachments":[],"category":"mondo","is_load":true,"settled":"2016-04-14T10:01:13.61Z","local_amount":10000,"local_currency":"GBP","updated":"2016-04-14T10:01:13.774Z","account_id":"acc_test","counterparty":{},"scheme":"gps_mastercard","dedupe_id":"372988965103972824","originator":false,"include_in_spending":false}}'

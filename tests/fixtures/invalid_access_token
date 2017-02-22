@@ -1,0 +1,40 @@
+
+-
+    request:
+        method: GET
+        url: 'https://api.monzo.com/accounts'
+        headers:
+            Host: api.monzo.com
+            Accept: application/json
+            Authorization: 'Bearer expired-access-token'
+    response:
+        status:
+            http_version: '1.1'
+            code: '401'
+            message: Unauthorized
+        headers:
+            Date: 'Wed, 22 Feb 2017 19:01:57 GMT'
+            Content-Type: application/json
+            Content-Length: '157'
+            Connection: keep-alive
+        body: "{\"code\":\"unauthorized.bad_access_token\",\"error\":\"invalid_token\",\"error_description\":\"token is expired by 4h51m44s\",\"message\":\"token is expired by 4h51m44s\"}\n"
+
+-
+    request:
+        method: GET
+        url: 'https://api.monzo.com/accounts'
+        headers:
+            Host: api.monzo.com
+            Accept: application/json
+            Authorization: 'Bearer bad-access-token'
+    response:
+        status:
+            http_version: '1.1'
+            code: '401'
+            message: Unauthorized
+        headers:
+            Date: 'Wed, 22 Feb 2017 20:03:14 GMT'
+            Content-Type: application/json
+            Content-Length: '133'
+            Connection: keep-alive
+        body: "{\"code\":\"unauthorized.bad_access_token\",\"error\":\"invalid_token\",\"error_description\":\"Bad access token\",\"message\":\"Bad access token\"}\n"

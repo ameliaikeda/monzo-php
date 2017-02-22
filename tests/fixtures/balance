@@ -1,0 +1,39 @@
+
+-
+    request:
+        method: GET
+        url: 'https://api.monzo.com/accounts'
+        headers:
+            Host: api.monzo.com
+            Accept: application/json
+            Authorization: 'Bearer valid-access-token'
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            Date: 'Wed, 22 Feb 2017 20:04:41 GMT'
+            Content-Type: application/json
+            Content-Length: '116'
+            Connection: keep-alive
+        body: '{"accounts":[{"id":"acc_test","created":"2016-04-13T11:53:24.769Z","description":"Test Account"}]}'
+-
+    request:
+        method: GET
+        url: 'https://api.monzo.com/balance?account_id=acc_test'
+        headers:
+            Host: api.monzo.com
+            Accept: application/json
+            Authorization: 'Bearer valid-access-token'
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            Date: 'Wed, 22 Feb 2017 20:04:42 GMT'
+            Content-Type: application/json
+            Content-Length: '152'
+            Connection: keep-alive
+        body: '{"balance":6394,"currency":"GBP","spend_today":-2171,"local_currency":"","local_exchange_rate":0,"local_spend":[{"spend_today":-2171,"currency":"GBP"}]}'
