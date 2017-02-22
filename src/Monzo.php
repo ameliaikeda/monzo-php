@@ -2,12 +2,14 @@
 
 namespace Amelia\Monzo;
 
-use Amelia\Monzo\Api\{Accounts, Balance, Transactions};
-use Amelia\Monzo\Contracts\Client as ClientContract;
-use Amelia\Monzo\Contracts\HasMonzoCredentials;
-use Amelia\Monzo\Exceptions\MonzoException;
-use Laravel\Socialite\Two\User;
 use TypeError;
+use Amelia\Monzo\Api\Balance;
+use Amelia\Monzo\Api\Accounts;
+use Laravel\Socialite\Two\User;
+use Amelia\Monzo\Api\Transactions;
+use Amelia\Monzo\Exceptions\MonzoException;
+use Amelia\Monzo\Contracts\HasMonzoCredentials;
+use Amelia\Monzo\Contracts\Client as ClientContract;
 
 class Monzo
 {
@@ -200,9 +202,9 @@ class Monzo
         // if we didn't get either, throw a TypeError.
         else {
             throw new TypeError(
-                static::class . '::' . __METHOD__ .
-                ' expects ' . User::class . ' or an object using '
-                . MonzoCredentials::class
+                static::class.'::'.__METHOD__.
+                ' expects '.User::class.' or an object using '
+                .MonzoCredentials::class
             );
         }
     }
@@ -237,7 +239,7 @@ class Monzo
 
         if ($token === null) {
             throw new MonzoException(
-                'A refresh token has not been set; ' .
+                'A refresh token has not been set; '.
                 'have you given a user, and are you using a confidential client?'
             );
         }

@@ -2,20 +2,18 @@
 
 namespace Amelia\Monzo;
 
-use Amelia\Monzo\Contracts\Client as ClientContract;
-use Amelia\Monzo\Exceptions\{
-    AccessDeniedException,
-    AccessTokenExpired,
-    AuthenticationException,
-    EmptyResponseException,
-    InvalidRequestException,
-    MonzoException,
-    NotFoundException,
-    RateLimitException,
-    UnexpectedValueException
-};
-use GuzzleHttp\Client as Guzzle;
 use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\Client as Guzzle;
+use Amelia\Monzo\Exceptions\MonzoException;
+use Amelia\Monzo\Exceptions\NotFoundException;
+use Amelia\Monzo\Exceptions\AccessTokenExpired;
+use Amelia\Monzo\Exceptions\RateLimitException;
+use Amelia\Monzo\Exceptions\AccessDeniedException;
+use Amelia\Monzo\Exceptions\EmptyResponseException;
+use Amelia\Monzo\Contracts\Client as ClientContract;
+use Amelia\Monzo\Exceptions\AuthenticationException;
+use Amelia\Monzo\Exceptions\InvalidRequestException;
+use Amelia\Monzo\Exceptions\UnexpectedValueException;
 
 class Client implements ClientContract
 {
@@ -48,7 +46,7 @@ class Client implements ClientContract
     protected $secret;
 
     /**
-     * Default query params
+     * Default query params.
      *
      * @var array
      */
@@ -97,7 +95,7 @@ class Client implements ClientContract
         ];
 
         if ($this->token) {
-            $options['headers']['Authorization'] = 'Bearer ' . $this->token;
+            $options['headers']['Authorization'] = 'Bearer '.$this->token;
         }
 
         if ($params = ($this->params + $query)) {
@@ -153,7 +151,7 @@ class Client implements ClientContract
         $body = json_decode($response->getBody()->getContents(), true);
 
         if ($body === null) {
-            throw new EmptyResponseException("Empty response given");
+            throw new EmptyResponseException('Empty response given');
         }
 
         if ($key !== null && ! array_key_exists($key, $body)) {
@@ -181,7 +179,6 @@ class Client implements ClientContract
         switch ($code = $response->getStatusCode()) {
             case 400:
                 throw new InvalidRequestException('Bad request');
-
             case 401:
                 $body = json_decode($response->getBody()->getContents(), true);
 
@@ -189,30 +186,23 @@ class Client implements ClientContract
                     && isset($body['error'])
                     && $body['error'] === 'invalid_token'
                 ) {
-                        throw new AccessTokenExpired;
+                    throw new AccessTokenExpired;
                 }
 
                 throw new AuthenticationException('You are not authenticated.');
-
             case 403:
                 throw new AccessDeniedException('You are authenticated but not authorized to make this action.');
-
             case 404:
                 throw new NotFoundException;
-
             case 405:
                 throw new InvalidRequestException('Invalid HTTP verb for this endpoint');
-
             case 406:
                 throw new InvalidRequestException('Your application does not accept the content format returned according to the Accept headers sent in the request.');
-
             case 429:
                 throw new RateLimitException('You\'ve exceeded your rate limit; back off');
-
             case 500:
             case 504:
                 throw new MonzoException('Monzo\'s API just errored internally. Check https://status.monzo.com for more info.');
-
             default:
                 throw new MonzoException("Unknown error code: $code");
         }
@@ -249,7 +239,7 @@ class Client implements ClientContract
         $result = json_decode($response->getBody()->getContent(), true);
 
         if (isset($result['error'])) {
-            throw new AuthenticationException($result['error'] . ' ' . ($result['hint'] ?? ''));
+            throw new AuthenticationException($result['error'].' '.($result['hint'] ?? ''));
         }
 
         return $result;

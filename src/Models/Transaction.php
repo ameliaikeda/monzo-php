@@ -9,11 +9,11 @@ namespace Amelia\Monzo\Models;
  * @property string $description
  * @property string $currency
  * @property string $decline_reason
- * @property integer $account_balance
- * @property integer $amount
- * @property boolean $is_load
- * @property boolean $pending
- * @property boolean $declined
+ * @property int $account_balance
+ * @property int $amount
+ * @property bool $is_load
+ * @property bool $pending
+ * @property bool $declined
  * @property array $metadata
  * @property \Carbon\Carbon $created
  * @property \Carbon\Carbon|null $settled

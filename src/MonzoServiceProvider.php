@@ -2,8 +2,8 @@
 
 namespace Amelia\Monzo;
 
-use Amelia\Monzo\Socialite\MonzoProvider;
 use Illuminate\Support\ServiceProvider;
+use Amelia\Monzo\Socialite\MonzoProvider;
 
 /**
  * Laravel 5.4+ service provider.
@@ -20,7 +20,7 @@ class MonzoServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/monzo.php', 'monzo');
+        $this->mergeConfigFrom(__DIR__.'/../config/monzo.php', 'monzo');
 
         if (class_exists('Laravel\Socialite\SocialiteManager')) {
             \Laravel\Socialite\Facades\Socialite::extend('monzo', function () {
@@ -35,7 +35,7 @@ class MonzoServiceProvider extends ServiceProvider
             });
         }
 
-        $source = __DIR__ . '/../migrations/add_monzo_columns.php';
+        $source = __DIR__.'/../migrations/add_monzo_columns.php';
         $destination = database_path('2017_02_19_000000_add_monzo_columns.php');
 
         $this->publishes([$source => $destination], 'monzo');

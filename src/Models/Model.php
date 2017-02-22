@@ -2,12 +2,12 @@
 
 namespace Amelia\Monzo\Models;
 
-use Carbon\Carbon;
-use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Contracts\Support\Jsonable;
-use Illuminate\Support\Str;
-use JsonSerializable;
 use ArrayAccess;
+use Carbon\Carbon;
+use JsonSerializable;
+use Illuminate\Support\Str;
+use Illuminate\Contracts\Support\Jsonable;
+use Illuminate\Contracts\Support\Arrayable;
 
 class Model implements Jsonable, Arrayable, JsonSerializable, ArrayAccess
 {
@@ -61,7 +61,7 @@ class Model implements Jsonable, Arrayable, JsonSerializable, ArrayAccess
         $attributes = $this->attributes;
 
         foreach ($this->appends as $append) {
-            $method = 'get' . Str::studly($append) . 'Attribute';
+            $method = 'get'.Str::studly($append).'Attribute';
 
             if (method_exists($this, $method)) {
                 $attributes[$append] = $this->$method();
@@ -97,7 +97,7 @@ class Model implements Jsonable, Arrayable, JsonSerializable, ArrayAccess
     }
 
     /**
-     * Specify data which should be serialized to JSON
+     * Specify data which should be serialized to JSON.
      * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
      * @return mixed data which can be serialized by <b>json_encode</b>,
      * which is a value of any type other than a resource.
@@ -184,7 +184,7 @@ class Model implements Jsonable, Arrayable, JsonSerializable, ArrayAccess
      */
     public function getAttribute(string $key)
     {
-        $method = 'get' . Str::studly($key) . 'Attribute';
+        $method = 'get'.Str::studly($key).'Attribute';
 
         if (method_exists($this, $method)) {
             return $this->$method();
@@ -215,12 +215,12 @@ class Model implements Jsonable, Arrayable, JsonSerializable, ArrayAccess
     }
 
     /**
-     * Whether a offset exists
+     * Whether a offset exists.
      * @link http://php.net/manual/en/arrayaccess.offsetexists.php
      * @param mixed $offset <p>
      * An offset to check for.
      * </p>
-     * @return boolean true on success or false on failure.
+     * @return bool true on success or false on failure.
      * </p>
      * <p>
      * The return value will be casted to boolean if non-boolean was returned.
@@ -232,7 +232,7 @@ class Model implements Jsonable, Arrayable, JsonSerializable, ArrayAccess
     }
 
     /**
-     * Offset to retrieve
+     * Offset to retrieve.
      * @link http://php.net/manual/en/arrayaccess.offsetget.php
      * @param mixed $offset <p>
      * The offset to retrieve.
@@ -246,7 +246,7 @@ class Model implements Jsonable, Arrayable, JsonSerializable, ArrayAccess
     }
 
     /**
-     * Offset to set
+     * Offset to set.
      * @link http://php.net/manual/en/arrayaccess.offsetset.php
      * @param mixed $offset <p>
      * The offset to assign the value to.
@@ -263,7 +263,7 @@ class Model implements Jsonable, Arrayable, JsonSerializable, ArrayAccess
     }
 
     /**
-     * Offset to unset
+     * Offset to unset.
      * @link http://php.net/manual/en/arrayaccess.offsetunset.php
      * @param mixed $offset <p>
      * The offset to unset.

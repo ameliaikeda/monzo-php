@@ -2,9 +2,9 @@
 
 namespace Amelia\Monzo\Socialite;
 
+use Laravel\Socialite\Two\User;
 use Laravel\Socialite\Two\AbstractProvider;
 use Laravel\Socialite\Two\ProviderInterface;
-use Laravel\Socialite\Two\User;
 
 class MonzoProvider extends AbstractProvider implements ProviderInterface
 {
@@ -41,7 +41,7 @@ class MonzoProvider extends AbstractProvider implements ProviderInterface
     {
         $response = $this->getHttpClient()->get('https://api.monzo.com/ping/whoami', [
             'headers' => [
-                'Authorization' => 'Bearer ' . $token,
+                'Authorization' => 'Bearer '.$token,
             ],
         ]);
 
@@ -64,7 +64,7 @@ class MonzoProvider extends AbstractProvider implements ProviderInterface
     protected function getTokenFields($code)
     {
         return array_merge(parent::getTokenFields($code), [
-            'grant_type' => 'authorization_code'
+            'grant_type' => 'authorization_code',
         ]);
     }
 }
