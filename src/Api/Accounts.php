@@ -2,8 +2,8 @@
 
 namespace Amelia\Monzo\Api;
 
-use Amelia\Monzo\Exceptions\MonzoException;
 use Amelia\Monzo\Models\Account;
+use Amelia\Monzo\Exceptions\MonzoException;
 
 trait Accounts
 {
@@ -40,7 +40,6 @@ trait Accounts
         $this->client->setParams($params);
 
         if ($accounts->count() === 1) {
-
             return $accounts->first()->id;
         }
 

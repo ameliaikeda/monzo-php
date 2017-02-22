@@ -2,15 +2,17 @@
 
 namespace Amelia\Test\Monzo;
 
-use Amelia\Monzo\{Client, Monzo};
-use Amelia\Monzo\Models\{Account, Transaction};
-use Carbon\Carbon;
-use Illuminate\Support\Collection;
-use PHPUnit\Framework\TestCase;
-use GuzzleHttp\Client as Guzzle;
 use VCR\VCR;
+use Carbon\Carbon;
+use Amelia\Monzo\Monzo;
+use Amelia\Monzo\Client;
+use PHPUnit\Framework\TestCase;
+use Amelia\Monzo\Models\Account;
+use GuzzleHttp\Client as Guzzle;
+use Illuminate\Support\Collection;
+use Amelia\Monzo\Models\Transaction;
 
-class AccountsTest extends TestCase
+class IntegrationTest extends TestCase
 {
     protected static $user;
     protected static $token;

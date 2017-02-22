@@ -2,8 +2,8 @@
 
 namespace Amelia\Monzo;
 
-use Amelia\Monzo\Exceptions\AccessTokenExpired;
 use Closure;
+use Amelia\Monzo\Exceptions\AccessTokenExpired;
 
 trait ErrorHandling
 {
