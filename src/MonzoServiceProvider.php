@@ -2,9 +2,9 @@
 
 namespace Amelia\Monzo;
 
+use GuzzleHttp\Client as Guzzle;
 use Illuminate\Support\ServiceProvider;
 use Amelia\Monzo\Socialite\MonzoProvider;
-use GuzzleHttp\Client as Guzzle;
 
 /**
  * Laravel 5.4+ service provider.
