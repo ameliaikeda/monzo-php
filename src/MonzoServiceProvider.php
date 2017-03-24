@@ -4,6 +4,7 @@ namespace Amelia\Monzo;
 
 use Illuminate\Support\ServiceProvider;
 use Amelia\Monzo\Socialite\MonzoProvider;
+use GuzzleHttp\Client as Guzzle;
 
 /**
  * Laravel 5.4+ service provider.
@@ -48,6 +49,12 @@ class MonzoServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton(Monzo::class, function ($app) {
+            $config = $app['config']['monzo'];
+
+            return new Monzo(new Client(new Guzzle, $config['id'], $config['secret']));
+        });
+
+        $this->app->alias('monzo', Monzo::class);
     }
 }
