@@ -82,7 +82,7 @@ class Client implements ClientContract
      * @param array $query
      * @param array $data
      * @param bool $raw
-     * @return mixed
+     * @return mixed|\Psr\Http\Message\ResponseInterface
      */
     public function call(string $method, string $endpoint, string $key = null, array $query = [], array $data = [], bool $raw = false)
     {
@@ -236,7 +236,7 @@ class Client implements ClientContract
             'grant_type' => 'refresh_token',
         ], true);
 
-        $result = json_decode($response->getBody()->getContent(), true);
+        $result = json_decode($response->getBody()->getContents(), true);
 
         if (isset($result['error'])) {
             throw new AuthenticationException($result['error'].' '.($result['hint'] ?? ''));
