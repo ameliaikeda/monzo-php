@@ -28,8 +28,6 @@ trait Accounts
                 ->call('GET', 'accounts', [], [], 'accounts');
         });
 
-        dd($results);
-
         return collect($results)->map(function ($item) {
             return new Account($item);
         });
