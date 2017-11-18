@@ -61,7 +61,7 @@ class MonzoServiceProvider extends ServiceProvider
             return new Monzo($app->make(ClientContract::class));
         });
 
-        $this->app->alias('monzo', Monzo::class);
-        $this->app->alias('monzo.client', ClientContract::class);
+        $this->app->alias(Monzo::class, 'monzo');
+        $this->app->alias(ClientContract::class, 'monzo.client');
     }
 }
