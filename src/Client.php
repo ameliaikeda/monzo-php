@@ -86,7 +86,7 @@ class Client implements ClientContract
     {
         $params = $this->buildQueryParams($query);
 
-        return static::API_ENDPOINT . trim($endpoint) . '?' . $params;
+        return static::API_ENDPOINT . '/' . trim($endpoint, '/') . '?' . $params;
     }
 
     /**
