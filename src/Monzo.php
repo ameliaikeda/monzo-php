@@ -2,6 +2,8 @@
 
 namespace Amelia\Monzo;
 
+use App\Http\Controllers\WebhookController;
+use Illuminate\Support\Facades\Route;
 use TypeError;
 use Amelia\Monzo\Api\Balance;
 use Amelia\Monzo\Api\Accounts;
@@ -275,5 +277,16 @@ class Monzo
     protected function getUser()
     {
         return $this->user ?? static::$defaultUser;
+    }
+
+    /**
+     * Register routes for Monzo's webhooks.
+     *
+     * @return \Illuminate\Support\Facades\Route
+     */
+    public static function routes()
+    {
+        return Route::post('hooks/monzo/{token}', WebhookController::class . '@hook')
+            ->name('monzo.webhook');
     }
 }
