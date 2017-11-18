@@ -3,7 +3,7 @@
 namespace Amelia\Monzo;
 
 use Closure;
-use Amelia\Monzo\Exceptions\AccessTokenExpired;
+use Amelia\Monzo\Exceptions\InvalidTokenException;
 
 trait ErrorHandling
 {
@@ -17,7 +17,7 @@ trait ErrorHandling
     {
         try {
             return $callback();
-        } catch (AccessTokenExpired $e) {
+        } catch (InvalidTokenException $e) {
             if ($this->hasRefreshToken()) {
                 $this->refresh();
 
@@ -42,6 +42,7 @@ trait ErrorHandling
 
         if ($this->hasUser()) {
             $user = $this->getUser();
+
             $user->updateMonzoCredentials($token, $refreshToken);
         }
 

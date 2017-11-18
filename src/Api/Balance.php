@@ -7,7 +7,7 @@ use Amelia\Monzo\Models\Balance as BalanceModel;
 trait Balance
 {
     /**
-     * Get a list of accounts for the current user.
+     * Get a balance for the current user.
      *
      * @param string $account
      * @return \Amelia\Monzo\Models\Balance
@@ -15,13 +15,14 @@ trait Balance
     public function balance(string $account = null)
     {
         $results = $this->withErrorHandling(function () use ($account) {
-            if ($account === null) {
-                $account = $this->findExistingAccount();
+            if (is_null($account = $account ?? $this->account)) {
+                $account = $this->getAccountId();
             }
 
             return $this->client
+                ->newClient()
                 ->token($this->getAccessToken())
-                ->call('GET', 'balance', null, ['account_id' => $account]);
+                ->call('GET', 'balance', ['account_id' => $account]);
         });
 
         return new BalanceModel($results);

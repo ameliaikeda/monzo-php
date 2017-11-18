@@ -17,7 +17,7 @@ interface Client
      * @param bool $raw
      * @return mixed
      */
-    public function call(string $method, string $endpoint, string $key = null, array $query = [], array $data = [], bool $raw = false);
+    public function call(string $method, string $endpoint, array $query = [], array $data = [], ?string $key = null, bool $raw = false);
 
     /**
      * Set the token for this request.
@@ -78,10 +78,10 @@ interface Client
     /**
      * Expand a given key in the response.
      *
-     * @param array $params
+     * @param string|array $params
      * @return void
      */
-    public function expand(array $params);
+    public function expand($params);
 
     /**
      * Return the currently set query parameters.
@@ -97,4 +97,11 @@ interface Client
      * @return void
      */
     public function setParams(array $params);
+
+    /**
+     * Return a new instance of this client with keys/etc still set.
+     *
+     * @return \Amelia\Monzo\Contracts\Client
+     */
+    public function newClient();
 }

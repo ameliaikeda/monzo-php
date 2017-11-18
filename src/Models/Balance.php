@@ -6,6 +6,7 @@ namespace Amelia\Monzo\Models;
  * Balance model.
  *
  * @property int $balance
+ * @property int $total_balance
  * @property string $currency
  * @property int $spend_today
  * @property string $local_currency

@@ -3,7 +3,7 @@
 use VCR\VCR;
 use VCR\Request;
 
-require __DIR__.'/../../vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 $config = VCR::configure();
 
@@ -18,6 +18,6 @@ $config->enableLibraryHooks('curl')
         'query_string',
         'body',
     ])
-    ->setCassettePath(__DIR__.'/../fixtures');
+    ->setCassettePath(__DIR__ . '/fixtures');
 
 VCR::turnOn();

@@ -8,6 +8,13 @@ use Amelia\Monzo\Exceptions\MonzoException;
 trait Accounts
 {
     /**
+     * An account ID to use.
+     *
+     * @var string
+     */
+    protected $account;
+
+    /**
      * Get a list of accounts for the current user.
      *
      * @return \Illuminate\Support\Collection|\Amelia\Monzo\Models\Account[]
@@ -16,9 +23,12 @@ trait Accounts
     {
         $results = $this->withErrorHandling(function () {
             return $this->client
+                ->newClient()
                 ->token($this->getAccessToken())
-                ->call('GET', 'accounts', 'accounts');
+                ->call('GET', 'accounts', [], [], 'accounts');
         });
+
+        dd($results);
 
         return collect($results)->map(function ($item) {
             return new Account($item);
@@ -30,23 +40,22 @@ trait Accounts
      *
      * @return string
      */
-    protected function findExistingAccount()
+    protected function getAccountId()
     {
-        $params = $this->client->params();
-        $this->client->setParams([]);
+        if ($this->account) {
+            return $this->account;
+        }
 
         $accounts = $this->accounts();
 
-        $this->client->setParams($params);
+        $account = $accounts->first(function (Account $account) {
+            return $account->type === 'uk_retail';
+        });
 
-        if ($accounts->count() === 1) {
-            return $accounts->first()->id;
-        }
-
-        if ($accounts->count() === 0) {
+        if ($account === null) {
             throw new MonzoException('The given user has no accounts. Did you use the correct email for auth?');
         }
 
-        throw new MonzoException('A user has more than one account; please specify it in the transactions method.');
+        return $this->account = $account->id;
     }
 }

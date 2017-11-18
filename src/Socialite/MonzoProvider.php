@@ -23,7 +23,7 @@ class MonzoProvider extends AbstractProvider implements ProviderInterface
      */
     protected function getAuthUrl($state)
     {
-        return $this->buildAuthUrlFromBase('https://auth.getmondo.co.uk/', $state);
+        return $this->buildAuthUrlFromBase('https://auth.monzo.com/', $state);
     }
 
     /**

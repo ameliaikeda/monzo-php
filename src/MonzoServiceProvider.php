@@ -2,7 +2,9 @@
 
 namespace Amelia\Monzo;
 
+use Amelia\Monzo\Contracts\Client as ClientContract;
 use GuzzleHttp\Client as Guzzle;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 use Amelia\Monzo\Socialite\MonzoProvider;
 
@@ -49,12 +51,17 @@ class MonzoServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton(Monzo::class, function ($app) {
+        $this->app->bind(ClientContract::class, function (Application $app) {
             $config = $app['config']['monzo'];
 
-            return new Monzo(new Client(new Guzzle, $config['id'], $config['secret']));
+            return new Client(new Guzzle, $config['id'], $config['secret']);
+        });
+
+        $this->app->singleton(Monzo::class, function (Application $app) {
+            return new Monzo($app->make(ClientContract::class));
         });
 
         $this->app->alias('monzo', Monzo::class);
+        $this->app->alias('monzo.client', ClientContract::class);
     }
 }
