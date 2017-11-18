@@ -36,7 +36,7 @@ function json_decode_response(ResponseInterface $response)
 {
     $type = $response->getHeaderLine('Content-Type');
 
-    if (! str_is($type, 'application/*json')) {
+    if (! str_is('application/*json', $type)) {
         throw new UnexpectedValueException("Expected application/*json, got $type");
     }
 
