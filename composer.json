@@ -1,5 +1,5 @@
 {
-    "name": "amelia/monzo-php",
+    "name": "amelia/monzo",
     "description": "An API client for Monzo Bank (https://monzo.com)",
     "type": "library",
     "license": "BSD-3-Clause",
@@ -32,6 +32,13 @@
     "autoload-dev": {
         "psr-4": {
             "Amelia\\Tests\\Monzo\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Amelia\\Monzo\\MonzoServiceProvider"
+            ]
         }
     }
 }
