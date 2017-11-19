@@ -2,9 +2,9 @@
 
 namespace Amelia\Monzo;
 
-use Amelia\Monzo\Util\QueryParams;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Client as Guzzle;
+use Amelia\Monzo\Util\QueryParams;
 use Amelia\Monzo\Exceptions\MonzoException;
 use Amelia\Monzo\Contracts\Client as ClientContract;
 use Amelia\Monzo\Exceptions\UnexpectedValueException;
@@ -63,7 +63,7 @@ class Client implements ClientContract
         ];
 
         if ($this->token) {
-            $options['headers']['Authorization'] = 'Bearer '.$this->token;
+            $options['headers']['Authorization'] = 'Bearer ' . $this->token;
         }
 
         if ($data) {

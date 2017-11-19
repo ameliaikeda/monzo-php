@@ -61,7 +61,7 @@ class Model implements Jsonable, Arrayable, JsonSerializable, ArrayAccess
         $attributes = $this->attributes;
 
         foreach ($this->appends as $append) {
-            $method = 'get'.Str::studly($append).'Attribute';
+            $method = 'get' . Str::studly($append) . 'Attribute';
 
             if (method_exists($this, $method)) {
                 $attributes[$append] = $this->$method();
@@ -184,7 +184,7 @@ class Model implements Jsonable, Arrayable, JsonSerializable, ArrayAccess
      */
     public function getAttribute(string $key)
     {
-        $method = 'get'.Str::studly($key).'Attribute';
+        $method = 'get' . Str::studly($key) . 'Attribute';
 
         if (method_exists($this, $method)) {
             return $this->$method();
