@@ -7,7 +7,7 @@ This library allows access to the [Monzo](https://monzo.com) API in PHP. This li
 ## Installation
 
 ```
-composer require amelia/monzo-php
+composer require amelia/monzo
 ```
 
 If you don't already have your own access tokens from completing oauth yourself, you'll need to also `composer require laravel/socialite`.
