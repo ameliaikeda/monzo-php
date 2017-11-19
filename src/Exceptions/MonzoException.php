@@ -89,12 +89,13 @@ class MonzoException extends RuntimeException
      * Set the response on this exception.
      *
      * @param \Psr\Http\Message\ResponseInterface $response
+     * @param string $body
      * @return $this
      */
-    public function response(ResponseInterface $response)
+    public function response(ResponseInterface $response, string $body)
     {
         $this->response = $response;
-        $this->body = json_decode_response($response);
+        $this->body = json_decode_response($response, $body);
         // set error message?
 
         return $this;
@@ -104,14 +105,18 @@ class MonzoException extends RuntimeException
      * Generate an exception from a response.
      *
      * @param \Psr\Http\Message\ResponseInterface $response
+     * @param string $body
      * @param string $errorCode
      * @return static
      */
-    public static function fromResponse(ResponseInterface $response, ?string $errorCode)
+    public static function fromResponse(ResponseInterface $response, string $body, ?string $errorCode)
     {
         $class = static::getExceptionType($errorCode, $response->getStatusCode());
 
-        return (new $class)->response($response);
+        /** @var \Amelia\Monzo\Exceptions\MonzoException $exception */
+        $exception = new $class;
+
+        return $exception->response($response, $body);
     }
 
     /**
@@ -128,9 +133,10 @@ class MonzoException extends RuntimeException
             $errors = collect(static::$errors);
 
             // exact match first, followed by pattern match.
-            $class = $errors->get($errorCode) ?? $errors->first(function ($value, string $key) use ($errorCode) {
-                return str_is($key, $errorCode);
-            });
+            $class = $errors->get($errorCode)
+                ?? $errors->first(function ($value, string $key) use ($errorCode) {
+                    return str_is($key, $errorCode);
+                });
 
             if ($class !== null) {
                 return $class;

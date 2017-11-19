@@ -122,21 +122,23 @@ class Client implements ClientContract
      */
     protected function parse(Response $response, string $key = null)
     {
-        $body = json_decode_response($response);
-
         $code = $response->getStatusCode();
 
-        if ($code >= 400 || $code < 200) {
-            $errorCode = array_get($body, 'error');
+        $body = $response->getBody()->getContents();
 
-            throw MonzoException::fromResponse($response, $errorCode);
+        $json = json_decode_response($response, $body);
+
+        if ($code >= 400 || $code < 200) {
+            $errorCode = array_get($json, 'error');
+
+            throw MonzoException::fromResponse($response, $body, $errorCode);
         }
 
-        if ($key !== null && ! array_key_exists($key, $body)) {
+        if ($key !== null && ! array_key_exists($key, $json)) {
             throw new UnexpectedValueException("Expected to find a [$key] key within the response; none found.");
         }
 
-        return $key === null ? $body : $body[$key];
+        return $key === null ? $json : $json[$key];
     }
 
     /**

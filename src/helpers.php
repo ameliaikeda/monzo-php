@@ -30,9 +30,10 @@ function json_decode($json)
  * Get json from a PSR object.
  *
  * @param \Psr\Http\Message\ResponseInterface $response
+ * @param string $body
  * @return array|null
  */
-function json_decode_response(ResponseInterface $response)
+function json_decode_response(ResponseInterface $response, string $body)
 {
     $type = $response->getHeaderLine('Content-Type');
 
@@ -40,7 +41,7 @@ function json_decode_response(ResponseInterface $response)
         throw new UnexpectedValueException("Expected application/*json, got $type");
     }
 
-    $result = json_decode($response->getBody()->getContents());
+    $result = json_decode($body);
 
     if ($result === null) {
         throw new EmptyResponseException;
