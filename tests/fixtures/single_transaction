@@ -2,7 +2,7 @@
 -
     request:
         method: GET
-        url: 'https://api.monzo.com/transactions?limit=1&since=2016-01-01T00%3A00%3A00Z&account_id=acc_test'
+        url: 'https://api.monzo.com/transactions?limit=1&since=2017-11-04T00%3A00%3A00Z&account_id=acc_retail'
         headers:
             Host: api.monzo.com
             Accept: application/json
@@ -13,15 +13,13 @@
             code: '200'
             message: OK
         headers:
-            Date: 'Wed, 22 Feb 2017 19:11:27 GMT'
             Content-Type: application/json
-            Content-Length: '551'
             Connection: keep-alive
-        body: '{"transactions":[{"id":"tx_test","created":"2016-04-14T10:01:13.61Z","description":"Initial top up","amount":10000,"currency":"GBP","merchant":null,"notes":"","metadata":{},"account_balance":10000,"attachments":[],"category":"mondo","is_load":true,"settled":"2016-04-14T10:01:13.61Z","local_amount":10000,"local_currency":"GBP","updated":"2016-04-14T10:01:13.774Z","account_id":"acc_test","counterparty":{},"scheme":"gps_mastercard","dedupe_id":"372988965103972824","originator":false,"include_in_spending":false}]}'
+        body: '{"transactions":[{"id":"tx_00009QCusp1BTwIrOR1HzF","created":"2017-11-04T08:41:03.018Z","description":"SAINSBURYS             NEWCASTLE     GBR","amount":-600,"currency":"GBP","merchant":"merch_000096zFEeoSVJIyYtgTNR","notes":"","metadata":{"ledger_insertion_id":"entryset_00009QCusn3wkgKytM9CVN","mastercard_auth_message_id":"mcauthmsg_0000anonymous","mastercard_lifecycle_id":"mclifecycle_0000anonymous"},"account_balance":0,"attachments":[],"category":"groceries","is_load":false,"settled":"2017-11-05T22:55:06.189Z","local_amount":-600,"local_currency":"GBP","updated":"2017-11-05T22:55:11.849Z","account_id":"acc_retail","counterparty":{},"scheme":"mastercard","dedupe_id":"mclifecycle:mclifecycle_0000anonymous:MASTERCARD_AUTH:mcauthmsg_0000anonymous","originator":false,"include_in_spending":true}]}'
 -
     request:
         method: GET
-        url: 'https://api.monzo.com/transactions/tx_test?expand%5B0%5D=merchant'
+        url: 'https://api.monzo.com/transactions/tx_00009QCusp1BTwIrOR1HzF?expand%5B%5D=merchant'
         headers:
             Host: api.monzo.com
             Accept: application/json
@@ -32,8 +30,6 @@
             code: '200'
             message: OK
         headers:
-            Date: 'Wed, 22 Feb 2017 19:11:28 GMT'
             Content-Type: application/json
-            Content-Length: '548'
             Connection: keep-alive
-        body: '{"transaction":{"id":"tx_test","created":"2016-04-14T10:01:13.61Z","description":"Initial top up","amount":10000,"currency":"GBP","merchant":null,"notes":"","metadata":{},"account_balance":10000,"attachments":[],"category":"mondo","is_load":true,"settled":"2016-04-14T10:01:13.61Z","local_amount":10000,"local_currency":"GBP","updated":"2016-04-14T10:01:13.774Z","account_id":"acc_test","counterparty":{},"scheme":"gps_mastercard","dedupe_id":"372988965103972824","originator":false,"include_in_spending":false}}'
+        body: '{"transaction":{"id":"tx_00009QCusp1BTwIrOR1HzF","created":"2017-11-04T08:41:03.018Z","description":"SAINSBURYS             NEWCASTLE     GBR","amount":-600,"currency":"GBP","merchant":{"id":"merch_000096zFEeoSVJIyYtgTNR","group_id":"grp_000092JYbNZELEWvugCnyr","created":"2016-04-08T10:53:13.116Z","name":"Sainsbury''s","logo":"https://mondo-logo-cache.appspot.com/twitter/@sainsburys/?size=large","emoji":"🍏","category":"groceries","online":false,"atm":false,"address":{"short_formatted":"Haddricks Mill Road, Newcastle Upon Tyne NE3 1SR","formatted":"Haddricks Mill Road, Newcastle Upon Tyne NE3 1SR, United Kingdom","address":"Haddricks Mill Road","city":"Newcastle upon Tyne","region":"","country":"GBR","postcode":"NE3 1SR","latitude":55.00611010000001,"longitude":-1.60244,"zoom_level":17,"approximate":false},"updated":"2016-11-18T11:36:13.428Z","metadata":{"created_for_merchant":"merch_000092JYbNXSRpSYIe325R","created_for_transaction":"tx_000096zFEdDCSLZvQMU6KX","enriched_from_settlement":"tx_000098aLbZj1Q8OsKok9wX","foursquare_category":"Convenience Store","foursquare_category_icon":"https://ss3.4sqi.net/img/categories_v2/shops/conveniencestore_88.png","foursquare_id":"4b42737af964a52034d425e3","foursquare_website":"http://www.sainsburys.co.uk","google_places_icon":"https://maps.gstatic.com/mapfiles/place_api/icons/shopping-71.png","google_places_id":"ChIJ5Yq4WjtxfkgRcQutBahmrl0","google_places_name":"Sainsbury''s Local","suggested_name":"Sainsbury''s Local","suggested_tags":"#groceries","twitter_id":"sainsburys","website":"http://www.sainsburys.co.uk/"},"disable_feedback":false},"notes":"","metadata":{"ledger_insertion_id":"entryset_0000anonymous","mastercard_auth_message_id":"mcauthmsg_0000anonymous","mastercard_lifecycle_id":"mclifecycle_0000anonymous"},"account_balance":0,"attachments":[],"category":"groceries","is_load":false,"settled":"2017-11-05T22:55:06.189Z","local_amount":-600,"local_currency":"GBP","updated":"2017-11-05T22:55:11.849Z","account_id":"acc_retail","counterparty":{},"scheme":"mastercard","dedupe_id":"mclifecycle:mclifecycle_0000anonymous:MASTERCARD_AUTH:mcauthmsg_0000anonymous","originator":false,"include_in_spending":true}}'

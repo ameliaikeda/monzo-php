@@ -1,4 +1,3 @@
-
 -
     request:
         method: GET
@@ -13,8 +12,6 @@
             code: '200'
             message: OK
         headers:
-            Date: 'Wed, 22 Feb 2017 19:11:23 GMT'
             Content-Type: application/json
-            Content-Length: '116'
             Connection: keep-alive
-        body: '{"accounts":[{"id":"acc_test","created":"2016-04-13T11:53:24.769Z","description":"Test Account"}]}'
+        body: '{"accounts":[{"id":"acc_prepaid","created":"2016-04-13T11:53:24.769Z","description":"Monzo Prepaid Account","type":"uk_prepaid"},{"id":"acc_retail","created":"2017-08-09T18:29:04.001Z","description":"Monzo Current Account","account_number":"00000000","sort_code":"040004","type":"uk_retail"}]}'

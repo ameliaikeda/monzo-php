@@ -40,11 +40,11 @@ trait Transactions
     public function transaction(string $id)
     {
         $results = $this->withErrorHandling(function () use ($id) {
-            return $this->client
-                ->newClient()
-                ->expand('merchant')
-                ->token($this->getAccessToken())
-                ->call('GET', "transactions/{$id}");
+            $client = $this->client->newClient()->token($this->getAccessToken());
+
+            $client->expand('merchant');
+
+            return $client->call('GET', "transactions/{$id}", [], [], 'transaction');
         });
 
         return new Transaction($results);

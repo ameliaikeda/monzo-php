@@ -13,15 +13,13 @@
             code: '200'
             message: OK
         headers:
-            Date: 'Wed, 22 Feb 2017 20:04:41 GMT'
             Content-Type: application/json
-            Content-Length: '116'
             Connection: keep-alive
-        body: '{"accounts":[{"id":"acc_test","created":"2016-04-13T11:53:24.769Z","description":"Test Account"}]}'
+        body: '{"accounts":[{"id":"acc_prepaid","created":"2016-04-13T11:53:24.769Z","description":"Monzo Prepaid Account","type":"uk_prepaid"},{"id":"acc_retail","created":"2017-08-09T18:29:04.001Z","description":"Monzo Current Account","account_number":"00000000","sort_code":"040004","type":"uk_retail"}]}'
 -
     request:
         method: GET
-        url: 'https://api.monzo.com/balance?account_id=acc_test'
+        url: 'https://api.monzo.com/balance?account_id=acc_retail'
         headers:
             Host: api.monzo.com
             Accept: application/json
@@ -32,8 +30,6 @@
             code: '200'
             message: OK
         headers:
-            Date: 'Wed, 22 Feb 2017 20:04:42 GMT'
             Content-Type: application/json
-            Content-Length: '152'
             Connection: keep-alive
-        body: '{"balance":6394,"currency":"GBP","spend_today":-2171,"local_currency":"","local_exchange_rate":0,"local_spend":[{"spend_today":-2171,"currency":"GBP"}]}'
+        body: '{"balance":185313,"total_balance":195313,"currency":"GBP","spend_today":0,"local_currency":"","local_exchange_rate":0,"local_spend":[]}'

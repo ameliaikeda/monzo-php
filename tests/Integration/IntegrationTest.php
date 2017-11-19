@@ -1,6 +1,6 @@
 <?php
 
-namespace Amelia\Test\Monzo;
+namespace Amelia\Test\Monzo\Integration;
 
 use VCR\VCR;
 use Carbon\Carbon;
@@ -30,14 +30,9 @@ class IntegrationTest extends TestCase
         $accounts = $monzo->as(static::$token)->accounts();
 
         $this->assertInstanceOf(Collection::class, $accounts);
-        $this->assertCount(1, $accounts);
         $this->assertContainsOnly(Account::class, $accounts);
 
-        $account = $accounts->first();
-
-        $this->assertEquals(static::$account, $account->id);
-        $this->assertInstanceOf(Carbon::class, $account->created);
-        $this->assertNotNull($account->description);
+        $this->assertCount(2, $accounts);
     }
 
     public function testTransactionsEndpoint()
@@ -79,13 +74,13 @@ class IntegrationTest extends TestCase
         $monzo = new Monzo(new Client(new Guzzle));
 
         $transactions = $monzo->as(static::$token)
-            ->take(20)
+            ->take(5)
             ->since('2016-01-01T00:00:00Z')
             ->transactions(static::$account);
 
         $this->assertInstanceOf(Collection::class, $transactions);
 
-        $this->assertCount(20, $transactions);
+        $this->assertCount(5, $transactions);
 
         $this->assertContainsOnly(Transaction::class, $transactions);
     }
@@ -97,13 +92,13 @@ class IntegrationTest extends TestCase
         $monzo = new Monzo(new Client(new Guzzle));
 
         $transactions = $monzo->as(static::$token)
-            ->take(20)
+            ->take(5)
             ->since('2016-01-01T00:00:00Z')
             ->transactions();
 
         $this->assertInstanceOf(Collection::class, $transactions);
 
-        $this->assertCount(20, $transactions);
+        $this->assertCount(5, $transactions);
 
         $this->assertContainsOnly(Transaction::class, $transactions);
     }
@@ -117,11 +112,9 @@ class IntegrationTest extends TestCase
         // grab a single transaction
         $transaction = $monzo->as(static::$token)
             ->take(1)
-            ->since('2016-01-01T00:00:00Z')
+            ->since('2017-11-04T00:00:00Z')
             ->transactions(static::$account)
             ->first();
-
-        // grab the ID
 
         $result = $monzo->as(static::$token)->transaction($transaction->id);
 
@@ -129,7 +122,7 @@ class IntegrationTest extends TestCase
     }
 
     /**
-     * @expectedException \Amelia\Monzo\Exceptions\AccessTokenExpired
+     * @expectedException \Amelia\Monzo\Exceptions\InvalidTokenException
      */
     public function testInvalidAccessTokens()
     {
@@ -140,6 +133,18 @@ class IntegrationTest extends TestCase
         $monzo->as('bad-access-token')->accounts();
     }
 
+    /**
+     * @expectedException \Amelia\Monzo\Exceptions\InvalidTokenException
+     */
+    public function testExpiredAccessToken()
+    {
+        VCR::insertCassette('invalid_access_token');
+
+        $monzo = new Monzo(new Client(new Guzzle));
+
+        $monzo->as('expired-access-token')->accounts();
+    }
+
     public function testFetchingBalance()
     {
         VCR::insertCassette('balance');
@@ -148,7 +153,8 @@ class IntegrationTest extends TestCase
 
         $balance = $monzo->as(static::$token)->balance();
 
-        $this->assertEquals(6394, $balance->balance);
+        $this->assertEquals(185313, $balance->balance);
+        $this->assertEquals(195313, $balance->total_balance); // £100 in pots
         $this->assertEquals('GBP', $balance->currency);
     }
 
@@ -160,7 +166,8 @@ class IntegrationTest extends TestCase
 
         $balance = $monzo->as(static::$token)->balance(static::$account);
 
-        $this->assertEquals(6394, $balance->balance);
+        $this->assertEquals(185313, $balance->balance);
+        $this->assertEquals(195313, $balance->total_balance); // £100 in pots
         $this->assertEquals('GBP', $balance->currency);
     }
 
@@ -172,7 +179,7 @@ class IntegrationTest extends TestCase
         static::$integrationUser = getenv('MONZO_TEST_USER');
 
         static::$token = 'valid-access-token';
-        static::$account = 'acc_test';
+        static::$account = 'acc_retail';
         static::$user = 'user_test';
     }
 }
