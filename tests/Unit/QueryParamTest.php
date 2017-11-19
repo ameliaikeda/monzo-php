@@ -2,8 +2,8 @@
 
 namespace Amelia\Test\Monzo\Unit;
 
-use Amelia\Monzo\Util\QueryParams;
 use PHPUnit\Framework\TestCase;
+use Amelia\Monzo\Util\QueryParams;
 
 class QueryParamTest extends TestCase
 {

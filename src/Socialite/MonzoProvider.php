@@ -41,7 +41,7 @@ class MonzoProvider extends AbstractProvider implements ProviderInterface
     {
         $response = $this->getHttpClient()->get('https://api.monzo.com/ping/whoami', [
             'headers' => [
-                'Authorization' => 'Bearer '.$token,
+                'Authorization' => 'Bearer ' . $token,
             ],
         ]);
 

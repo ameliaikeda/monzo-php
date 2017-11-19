@@ -5,14 +5,14 @@ namespace Amelia\Monzo\Exceptions;
 class JsonErrorException extends MonzoException
 {
     /**
-     * The raw input given to json_decode
+     * The raw input given to json_decode.
      *
      * @var mixed
      */
     public $raw;
 
     /**
-     * The raw error from {@see json_last_error_msg()}
+     * The raw error from {@see json_last_error_msg()}.
      *
      * @var string
      */

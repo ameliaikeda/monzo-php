@@ -2,12 +2,11 @@
 
 namespace Amelia\Monzo;
 
-use Amelia\Monzo\Exceptions\EmptyResponseException;
-use Amelia\Monzo\Exceptions\JsonErrorException;
-use Amelia\Monzo\Exceptions\UnexpectedValueException;
 use Psr\Http\Message\ResponseInterface;
-
 use function json_decode as base_json_decode;
+use Amelia\Monzo\Exceptions\JsonErrorException;
+use Amelia\Monzo\Exceptions\EmptyResponseException;
+use Amelia\Monzo\Exceptions\UnexpectedValueException;
 
 /**
  * Deserialize JSON from Monzo's API.

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+use Amelia\Monzo\Models\Transaction;
 use Amelia\Monzo\Events\TransactionCreated;
 use Amelia\Monzo\Exceptions\MonzoException;
-use Amelia\Monzo\Models\Transaction;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 
 class WebhookController extends BaseController
@@ -41,10 +41,10 @@ class WebhookController extends BaseController
         $model = config('monzo.webhooks.model', 'App\\User');
 
         if (! class_exists($model)) {
-            throw new MonzoException('Class '. $model . ' not found while processing a webhook.');
+            throw new MonzoException('Class ' . $model . ' not found while processing a webhook.');
         }
 
-        return (new $model);
+        return new $model;
     }
 
     /**

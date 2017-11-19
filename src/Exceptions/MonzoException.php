@@ -2,9 +2,8 @@
 
 namespace Amelia\Monzo\Exceptions;
 
-use Psr\Http\Message\ResponseInterface;
 use RuntimeException;
-
+use Psr\Http\Message\ResponseInterface;
 use function Amelia\Monzo\json_decode_response;
 
 class MonzoException extends RuntimeException
@@ -47,7 +46,7 @@ class MonzoException extends RuntimeException
         404 => NotFoundException::class,
         405 => MethodNotAllowedException::class,
         429 => RateLimitException::class,
-        500 => MonzoException::class,
+        500 => self::class,
         504 => GatewayTimeoutException::class,
     ];
 
