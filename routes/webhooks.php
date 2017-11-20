@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\WebhookController;
+use Amelia\Monzo\Http\Controllers\WebhookController;
 
-Route::post('webhooks/{user}/{token}', WebhookController::class . '@hook')
+Route::post('webhooks/{user}/{token}', WebhookController::class . '@handle')
     ->name('monzo::webhook');

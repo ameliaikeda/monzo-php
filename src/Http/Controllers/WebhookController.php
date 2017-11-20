@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Amelia\Monzo\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Amelia\Monzo\Models\Transaction;
@@ -11,10 +11,13 @@ use Illuminate\Routing\Controller as BaseController;
 class WebhookController extends BaseController
 {
     /**
+     * Handle a webhook.
+     *
+     * @param string $user
      * @param string $token
      * @param \Illuminate\Http\Request $request
      */
-    public function hook(string $user, string $token, Request $request)
+    public function handle(string $user, string $token, Request $request)
     {
         if (app()->environment('local')) {
             logger(json_encode($request->all(), JSON_PRETTY_PRINT));
