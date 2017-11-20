@@ -25,7 +25,7 @@ class WebhookController extends BaseController
         $type = $request->input('type');
 
         if ($type === 'transaction.created') {
-            event(new TransactionCreated(new Transaction($request->all()), $user));
+            event(new TransactionCreated(new Transaction($request->input('data')), $user));
         } else {
             logger('Unhandled webhook type: ' . $type);
         }
