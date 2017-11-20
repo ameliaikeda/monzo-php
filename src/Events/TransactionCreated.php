@@ -2,9 +2,9 @@
 
 namespace Amelia\Monzo\Events;
 
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Ramsey\Uuid\Uuid;
 use Amelia\Monzo\Models\Transaction;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Amelia\Monzo\Contracts\HasMonzoCredentials;
 
 class TransactionCreated implements ShouldQueue
