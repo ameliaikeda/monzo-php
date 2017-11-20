@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Amelia\Monzo\Models\Transaction;
 use Amelia\Monzo\Events\TransactionCreated;
@@ -71,7 +70,7 @@ class WebhookController extends BaseController
         $userToken = $user->getAttribute(config('monzo.webhooks.token'));
 
         if (! hash_equals($userToken, $token)) {
-            logger("Hash equals failed for user: " . $token);
+            logger('Hash equals failed for user: ' . $token);
 
             abort(404);
         }

@@ -2,9 +2,9 @@
 
 namespace Amelia\Monzo\Events;
 
-use Amelia\Monzo\Contracts\HasMonzoCredentials;
-use Amelia\Monzo\Models\Transaction;
 use Ramsey\Uuid\Uuid;
+use Amelia\Monzo\Models\Transaction;
+use Amelia\Monzo\Contracts\HasMonzoCredentials;
 
 class TransactionCreated
 {

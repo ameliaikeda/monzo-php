@@ -22,5 +22,5 @@ return [
         'model' => getenv('MONZO_USER_MODEL') ?: 'App\\User',
         'user_token' => getenv('MONZO_USER_TOKEN_KEY') ?: 'monzo_user_token',
         'token' => getenv('MONZO_WEBHOOK_TOKEN_KEY') ?: 'monzo_webhook_token',
-    ]
+    ],
 ];
