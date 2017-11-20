@@ -2,12 +2,12 @@
 
 [![Build Status](https://travis-ci.org/ameliaikeda/monzo-php.svg?branch=master)](https://travis-ci.org/ameliaikeda/monzo-php)
 
-This library allows access to the [Monzo](https://monzo.com) API in PHP. This library requires PHP 7.0+.
+This library allows access to the [Monzo](https://monzo.com) API in PHP. This library requires PHP 7.1+.
 
 ## Installation
 
 ```
-composer require amelia/monzo
+composer require amelia/monzo-php
 ```
 
 If you don't already have your own access tokens from completing oauth yourself, you'll need to also `composer require laravel/socialite`.
