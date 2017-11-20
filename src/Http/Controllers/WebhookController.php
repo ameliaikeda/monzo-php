@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Amelia\Monzo\Models\Transaction;
 use Amelia\Monzo\Events\TransactionCreated;
@@ -14,20 +15,20 @@ class WebhookController extends BaseController
      * @param string $token
      * @param \Illuminate\Http\Request $request
      */
-    public function hook(string $token, Request $request)
+    public function hook(string $user, string $token, Request $request)
     {
         if (app()->environment('local')) {
             logger(json_encode($request->all(), JSON_PRETTY_PRINT));
         }
 
-        $user = $this->findByWebhookToken($token);
+        $user = $this->findByWebhookToken($user, $token);
 
         $type = $request->input('type');
 
         if ($type === 'transaction.created') {
             event(new TransactionCreated(new Transaction($request->input('data')), $user));
         } else {
-            logger('Unhandled webhook type: ' . $type);
+            logger("Unhandled webhook type: $type");
         }
     }
 
@@ -38,9 +39,7 @@ class WebhookController extends BaseController
      */
     protected function getUserModel()
     {
-        $model = config('monzo.webhooks.model', 'App\\User');
-
-        if (! class_exists($model)) {
+        if (! class_exists($model = config('monzo.webhooks.model'))) {
             throw new MonzoException('Class ' . $model . ' not found while processing a webhook.');
         }
 
@@ -50,20 +49,31 @@ class WebhookController extends BaseController
     /**
      * Get a user by webhook token.
      *
+     * @param string $user
      * @param string $token
      * @return \Illuminate\Database\Eloquent\Model|null
      */
-    protected function findByWebhookToken(string $token)
+    protected function findByWebhookToken(string $user, string $token)
     {
-        // todo: use two tokens + hash_equals to avoid a timing attack on the latter one.
         $model = $this->getUserModel();
 
         $user = $model->newQuery()
-            ->where(config('monzo.webhooks.attribute', 'webhook_token'), $token)
+            ->where(config('monzo.webhooks.user_token'), $user)
             ->first();
 
         if ($user === null) {
-            logger('User not found for webhook token: ' . $token);
+            logger("User not found for webhook token: $user");
+
+            abort(404);
+        }
+
+        // now validate the token.
+        $userToken = $user->getAttribute(config('monzo.webhooks.token'));
+
+        if (! hash_equals($userToken, $token)) {
+            logger("Hash equals failed for user: " . $token);
+
+            abort(404);
         }
 
         return $user;

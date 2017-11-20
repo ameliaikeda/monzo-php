@@ -2,6 +2,7 @@
 
 namespace Amelia\Monzo\Events;
 
+use Amelia\Monzo\Contracts\HasMonzoCredentials;
 use Amelia\Monzo\Models\Transaction;
 use Ramsey\Uuid\Uuid;
 
@@ -24,7 +25,7 @@ class TransactionCreated
     /**
      * A user model for this transaction event.
      *
-     * @var \Illuminate\Database\Eloquent\Model|null
+     * @var \Illuminate\Database\Eloquent\Model|\Amelia\Monzo\Contracts\HasMonzoCredentials
      */
     public $user;
 
@@ -39,9 +40,9 @@ class TransactionCreated
      * TransactionCreated constructor.
      *
      * @param \Amelia\Monzo\Models\Transaction $transaction
-     * @param \Illuminate\Database\Eloquent\Model|null $user
+     * @param \Amelia\Monzo\Contracts\HasMonzoCredentials|\Illuminate\Database\Eloquent\Model $user
      */
-    public function __construct(Transaction $transaction, $user = null)
+    public function __construct(Transaction $transaction, HasMonzoCredentials $user)
     {
         $this->transaction = $transaction;
         $this->user = $user;
