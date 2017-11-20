@@ -3,6 +3,7 @@
 namespace Amelia\Monzo\Events;
 
 use Amelia\Monzo\Models\Transaction;
+use Ramsey\Uuid\Uuid;
 
 class TransactionCreated
 {
@@ -12,6 +13,13 @@ class TransactionCreated
      * @var string
      */
     public $type = 'transaction.created';
+
+    /**
+     * An ID used to prevent processing duplicates.
+     *
+     * @var string
+     */
+    public $id;
 
     /**
      * A user model for this transaction event.
@@ -37,5 +45,6 @@ class TransactionCreated
     {
         $this->transaction = $transaction;
         $this->user = $user;
+        $this->id = (string) Uuid::uuid4();
     }
 }
