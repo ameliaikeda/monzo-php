@@ -1,5 +1,5 @@
 {
-    "name": "amelia/monzo",
+    "name": "amelia/monzo-php",
     "description": "An API client for Monzo Bank (https://monzo.com)",
     "type": "library",
     "license": "BSD-3-Clause",
@@ -11,7 +11,7 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "php": ">=7.0",
+        "php": ">=7.1",
         "illuminate/support": "~5.5",
         "guzzlehttp/guzzle": "^6.3"
     },
