@@ -2,6 +2,8 @@
 
 namespace Amelia\Monzo;
 
+use Amelia\Monzo\Api\Webhooks;
+use Amelia\Monzo\Http\Controllers\WebhookController;
 use TypeError;
 use Amelia\Monzo\Api\Balance;
 use Amelia\Monzo\Api\Accounts;
@@ -9,13 +11,12 @@ use Laravel\Socialite\Two\User;
 use Amelia\Monzo\Api\Transactions;
 use Illuminate\Support\Facades\Route;
 use Amelia\Monzo\Exceptions\MonzoException;
-use App\Http\Controllers\WebhookController;
 use Amelia\Monzo\Contracts\HasMonzoCredentials;
 use Amelia\Monzo\Contracts\Client as ClientContract;
 
 class Monzo
 {
-    use ErrorHandling, Accounts, Transactions, Balance;
+    use ErrorHandling, Accounts, Transactions, Balance, Webhooks;
 
     /**
      * A user's access token.
@@ -277,16 +278,5 @@ class Monzo
     protected function getUser()
     {
         return $this->user ?? static::$defaultUser;
-    }
-
-    /**
-     * Register routes for Monzo's webhooks.
-     *
-     * @return \Illuminate\Support\Facades\Route
-     */
-    public static function routes()
-    {
-        return Route::post('hooks/monzo/{token}', WebhookController::class . '@hook')
-            ->name('monzo.webhook');
     }
 }

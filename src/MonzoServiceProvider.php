@@ -42,10 +42,6 @@ class MonzoServiceProvider extends ServiceProvider
         $destination = database_path('2017_12_25_000000_add_monzo_columns.php');
 
         $this->publishes([$source => $destination], 'monzo');
-
-        if (config('monzo.webhooks.active')) {
-            $this->loadRoutesFrom(__DIR__ . '/../routes/webhooks.php');
-        }
     }
 
     /**

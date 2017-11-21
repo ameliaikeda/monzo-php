@@ -2,6 +2,7 @@
 
 namespace Amelia\Monzo\Models;
 
+use Amelia\Monzo\Monzo;
 use ArrayAccess;
 use Carbon\Carbon;
 use JsonSerializable;
@@ -42,13 +43,27 @@ class Model implements Jsonable, Arrayable, JsonSerializable, ArrayAccess
     protected $casts = [];
 
     /**
+     * A static monzo instance.
+     *
+     * @var \Amelia\Monzo\Monzo
+     */
+    protected static $monzo;
+
+    /**
      * Base Monzo model constructor.
      *
      * @param array $attributes
+     * @param \Amelia\Monzo\Monzo|null $monzo
      */
-    public function __construct(array $attributes = [])
+    public function __construct(array $attributes = [], Monzo $monzo = null)
     {
         $this->setAttributes($attributes);
+
+        // dev UX test: make models API-aware?
+        // bonus: it's already authed from the previous call.
+        if ($monzo !== null) {
+            static::$monzo = $monzo;
+        }
     }
 
     /**
