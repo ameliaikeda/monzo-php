@@ -2,10 +2,10 @@
 
 namespace Amelia\Monzo\Models;
 
-use Amelia\Monzo\Monzo;
 use ArrayAccess;
 use Carbon\Carbon;
 use JsonSerializable;
+use Amelia\Monzo\Monzo;
 use Illuminate\Support\Str;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Contracts\Support\Arrayable;
