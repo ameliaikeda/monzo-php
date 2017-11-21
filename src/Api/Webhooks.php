@@ -28,7 +28,7 @@ trait Webhooks
         });
 
         return collect($results)->map(function ($item) {
-            return new Webhook($item);
+            return new Webhook($item, $this);
         });
     }
 
@@ -47,7 +47,7 @@ trait Webhooks
                 ->call('GET', "webhooks/$id", [], [], 'webhooks');
         });
 
-        return new Webhook($result);
+        return new Webhook($result, $this);
     }
 
     /**
@@ -91,6 +91,6 @@ trait Webhooks
                 ], 'webhook');
         });
 
-        return new Webhook($result);
+        return new Webhook($result, $this);
     }
 }

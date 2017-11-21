@@ -27,7 +27,7 @@ trait Transactions
         });
 
         return collect($results)->map(function ($item) {
-            return new Transaction($item);
+            return new Transaction($item, $this);
         });
     }
 
@@ -47,6 +47,6 @@ trait Transactions
             return $client->call('GET', "transactions/{$id}", [], [], 'transaction');
         });
 
-        return new Transaction($results);
+        return new Transaction($results, $this);
     }
 }

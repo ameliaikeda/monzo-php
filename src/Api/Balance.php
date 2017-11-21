@@ -25,6 +25,6 @@ trait Balance
                 ->call('GET', 'balance', ['account_id' => $account]);
         });
 
-        return new BalanceModel($results);
+        return new BalanceModel($results, $this);
     }
 }

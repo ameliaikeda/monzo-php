@@ -29,7 +29,7 @@ trait Accounts
         });
 
         return collect($results)->map(function ($item) {
-            return new Account($item);
+            return new Account($item, $this);
         });
     }
 
