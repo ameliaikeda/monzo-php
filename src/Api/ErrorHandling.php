@@ -53,6 +53,8 @@ trait ErrorHandling
     }
 
     /**
+     * Call a specific endpoint on the client, with retrying for access tokens.
+     *
      * @param string $method The method we want to use (GET, POST, PUT, DELETE, PATCH)
      * @param string $endpoint The endpoint we want to hit.
      * @param array $query The query params we're going to send.
