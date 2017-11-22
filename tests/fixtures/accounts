@@ -1,9 +1,11 @@
+
 -
     request:
         method: GET
         url: 'https://api.monzo.com/accounts'
         headers:
             Host: api.monzo.com
+            Accept-Encoding: null
             Accept: application/json
             Authorization: 'Bearer valid-access-token'
     response:
@@ -12,6 +14,7 @@
             code: '200'
             message: OK
         headers:
+            Date: 'Wed, 22 Nov 2017 21:20:42 GMT'
             Content-Type: application/json
             Connection: keep-alive
         body: '{"accounts":[{"id":"acc_prepaid","created":"2016-04-13T11:53:24.769Z","description":"Monzo Prepaid Account","type":"uk_prepaid"},{"id":"acc_retail","created":"2017-08-09T18:29:04.001Z","description":"Monzo Current Account","account_number":"00000000","sort_code":"040004","type":"uk_retail"}]}'

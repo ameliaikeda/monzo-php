@@ -21,12 +21,7 @@ trait Accounts
      */
     public function accounts()
     {
-        $results = $this->withErrorHandling(function () {
-            return $this->client
-                ->newClient()
-                ->token($this->getAccessToken())
-                ->call('GET', 'accounts', [], [], 'accounts');
-        });
+        $results = $this->call('GET', 'accounts', [], [], 'accounts');
 
         return collect($results)->map(function ($item) {
             return new Account($item, $this);

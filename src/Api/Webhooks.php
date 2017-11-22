@@ -14,18 +14,9 @@ trait Webhooks
      */
     public function webhooks(string $account = null)
     {
-        $results = $this->withErrorHandling(function () use ($account) {
-            if ($account === null) {
-                // best-effort to find an existing account.
-
-                $account = $this->getAccountId();
-            }
-
-            return $this->client
-                ->newClient()
-                ->token($this->getAccessToken())
-                ->call('GET', 'webhooks', ['account_id' => $account], [], 'webhooks');
-        });
+        $results = $this->call('GET', 'webhooks', [
+            'account_id' => $account ?? $this->getAccountId(),
+        ], [], 'webhooks');
 
         return collect($results)->map(function ($item) {
             return new Webhook($item, $this);
@@ -40,12 +31,7 @@ trait Webhooks
      */
     public function webhook(string $id)
     {
-        $result = $this->withErrorHandling(function () use ($id) {
-            return $this->client
-                ->newClient()
-                ->token($this->getAccessToken())
-                ->call('GET', "webhooks/$id", [], [], 'webhooks');
-        });
+        $result = $this->call('GET', "webhooks/$id", [], [], 'webhooks');
 
         return new Webhook($result, $this);
     }
@@ -58,12 +44,7 @@ trait Webhooks
      */
     public function deleteWebhook(string $id)
     {
-        $this->withErrorHandling(function () use ($id) {
-            return $this->client
-                ->newClient()
-                ->token($this->getAccessToken())
-                ->call('DELETE', "webhooks/$id");
-        });
+        $this->call('DELETE', "webhooks/$id");
     }
 
     /**
@@ -75,21 +56,10 @@ trait Webhooks
      */
     public function registerWebhook(string $url, string $account = null)
     {
-        $result = $this->withErrorHandling(function () use ($url, $account) {
-            if ($account === null) {
-                // best-effort to find an existing account.
-
-                $account = $this->getAccountId();
-            }
-
-            return $this->client
-                ->newClient()
-                ->token($this->getAccessToken())
-                ->call('POST', 'webhooks', [], [
-                    'url' => $url,
-                    'account_id' => $account,
-                ], 'webhook');
-        });
+        $result = $this->call('POST', 'webhooks', [], [
+            'url' => $url,
+            'account_id' => $account ?? $this->getAccountId(),
+        ], 'webhook');
 
         return new Webhook($result, $this);
     }

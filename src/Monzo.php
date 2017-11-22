@@ -2,6 +2,8 @@
 
 namespace Amelia\Monzo;
 
+use Amelia\Monzo\Api\ErrorHandling;
+use Amelia\Monzo\Api\Feed;
 use TypeError;
 use Amelia\Monzo\Api\Balance;
 use Amelia\Monzo\Api\Accounts;
@@ -14,7 +16,7 @@ use Amelia\Monzo\Contracts\Client as ClientContract;
 
 class Monzo
 {
-    use ErrorHandling, Accounts, Transactions, Balance, Webhooks;
+    use ErrorHandling, Accounts, Transactions, Balance, Webhooks, Feed;
 
     /**
      * A user's access token.

@@ -152,8 +152,8 @@ class IntegrationTest extends TestCase
 
         $balance = $monzo->as(static::$token)->balance();
 
-        $this->assertEquals(185313, $balance->balance);
-        $this->assertEquals(195313, $balance->total_balance); // £100 in pots
+        $this->assertEquals(180000, $balance->balance);
+        $this->assertEquals(200000, $balance->total_balance); // £100 in pots
         $this->assertEquals('GBP', $balance->currency);
     }
 
@@ -165,8 +165,8 @@ class IntegrationTest extends TestCase
 
         $balance = $monzo->as(static::$token)->balance(static::$account);
 
-        $this->assertEquals(185313, $balance->balance);
-        $this->assertEquals(195313, $balance->total_balance); // £100 in pots
+        $this->assertEquals(180000, $balance->balance);
+        $this->assertEquals(200000, $balance->total_balance); // £100 in pots
         $this->assertEquals('GBP', $balance->currency);
     }
 

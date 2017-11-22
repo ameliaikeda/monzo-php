@@ -95,7 +95,8 @@ class MonzoException extends RuntimeException
     {
         $this->response = $response;
         $this->body = json_decode_response($response, $body);
-        // set error message?
+
+        $this->message = "{$this->body['message']} ({$this->body['code']})";
 
         return $this;
     }

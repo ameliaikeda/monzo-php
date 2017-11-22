@@ -14,16 +14,9 @@ trait Balance
      */
     public function balance(string $account = null)
     {
-        $results = $this->withErrorHandling(function () use ($account) {
-            if (is_null($account = $account ?? $this->account)) {
-                $account = $this->getAccountId();
-            }
-
-            return $this->client
-                ->newClient()
-                ->token($this->getAccessToken())
-                ->call('GET', 'balance', ['account_id' => $account]);
-        });
+        $results = $this->call('GET', 'balance', [
+            'account_id' => $account ?? $this->getAccountId(),
+        ]);
 
         return new BalanceModel($results, $this);
     }

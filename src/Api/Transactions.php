@@ -14,17 +14,10 @@ trait Transactions
      */
     public function transactions(string $account = null)
     {
-        $results = $this->withErrorHandling(function () use ($account) {
-            if ($account === null) {
-                // best-effort to find an existing account.
-
-                $account = $this->getAccountId();
-            }
-
-            return $this->client
-                ->token($this->getAccessToken())
-                ->call('GET', 'transactions', ['account_id' => $account], [], 'transactions');
-        });
+        $results = $this->expand('merchant')
+            ->call('GET', 'transactions', [
+                'account_id' => $account ?? $this->getAccountId(),
+            ], [], 'transactions', false);
 
         return collect($results)->map(function ($item) {
             return new Transaction($item, $this);
@@ -39,13 +32,8 @@ trait Transactions
      */
     public function transaction(string $id)
     {
-        $results = $this->withErrorHandling(function () use ($id) {
-            $client = $this->client->newClient()->token($this->getAccessToken());
-
-            $client->expand('merchant');
-
-            return $client->call('GET', "transactions/{$id}", [], [], 'transaction');
-        });
+        $results = $this->expand('merchant')
+            ->call('GET', "transactions/{$id}", [], [], 'transaction', false);
 
         return new Transaction($results, $this);
     }
