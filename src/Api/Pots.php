@@ -2,8 +2,8 @@
 
 namespace Amelia\Monzo\Api;
 
-use Amelia\Monzo\Exceptions\MonzoException;
 use Amelia\Monzo\Models\Pot;
+use Amelia\Monzo\Exceptions\MonzoException;
 
 trait Pots
 {
