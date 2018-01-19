@@ -3,20 +3,17 @@
 namespace Amelia\Monzo;
 
 use TypeError;
-use Amelia\Monzo\Api\Feed;
-use Amelia\Monzo\Api\Balance;
-use Amelia\Monzo\Api\Accounts;
-use Amelia\Monzo\Api\Webhooks;
+use Amelia\Monzo\Api\{
+    Accounts, Balance, ErrorHandling, Feed, Pots, Transactions, Webhooks
+};
 use Laravel\Socialite\Two\User;
-use Amelia\Monzo\Api\Transactions;
-use Amelia\Monzo\Api\ErrorHandling;
 use Amelia\Monzo\Exceptions\MonzoException;
 use Amelia\Monzo\Contracts\HasMonzoCredentials;
 use Amelia\Monzo\Contracts\Client as ClientContract;
 
 class Monzo
 {
-    use ErrorHandling, Accounts, Transactions, Balance, Webhooks, Feed;
+    use ErrorHandling, Accounts, Transactions, Balance, Webhooks, Feed, Pots;
 
     /**
      * A user's access token.
@@ -97,15 +94,11 @@ class Monzo
         if (is_string($user)) {
             $this->token = $user;
             $this->refreshToken = $refreshToken;
-        }
-
-        // if we were given a socialite user, use that.
+        } // if we were given a socialite user, use that.
         elseif ($user instanceof User) {
             $this->token = $user->token;
             $this->refreshToken = $user->refreshToken;
-        }
-
-        // if we were given a proper user object, use that.
+        } // if we were given a proper user object, use that.
         elseif ($user instanceof HasMonzoCredentials) {
             $this->user = $user;
             $this->token = $user->getMonzoAccessToken();
@@ -193,16 +186,12 @@ class Monzo
         if ($user instanceof User) {
             static::$defaultToken = $user->token;
             static::$defaultRefreshToken = $user->refreshToken;
-        }
-
-        // If we're using the monzo interface, we can just use that.
+        } // If we're using the monzo interface, we can just use that.
         elseif ($user instanceof HasMonzoCredentials) {
             static::$defaultUser = $user;
             static::$defaultToken = $user->getMonzoAccessToken();
             static::$defaultRefreshToken = $user->getMonzoRefreshToken();
-        }
-
-        // if we didn't get either, throw a TypeError.
+        } // if we didn't get either, throw a TypeError.
         else {
             throw new TypeError(
                 static::class . '::' . __METHOD__ .
