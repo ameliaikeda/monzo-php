@@ -47,7 +47,7 @@ class Model implements Jsonable, Arrayable, JsonSerializable, ArrayAccess
      *
      * @var \Amelia\Monzo\Monzo
      */
-    protected static $monzo;
+    protected $monzo;
 
     /**
      * Base Monzo model constructor.
@@ -62,7 +62,7 @@ class Model implements Jsonable, Arrayable, JsonSerializable, ArrayAccess
         // dev UX test: make models API-aware?
         // bonus: it's already authed from the previous call.
         if ($monzo !== null) {
-            static::$monzo = $monzo;
+            $this->monzo = $monzo;
         }
     }
 
