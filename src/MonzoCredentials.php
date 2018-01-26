@@ -67,6 +67,16 @@ trait MonzoCredentials
     }
 
     /**
+     * Get a user's monzo email.
+     *
+     * @return string
+     */
+    public function getMonzoEmail()
+    {
+        return $this->getAttribute($this->getMonzoEmailColumn());
+    }
+
+    /**
      * Get the attribute name for a monzo user's access token.
      *
      * @return string
@@ -94,5 +104,15 @@ trait MonzoCredentials
     protected function getMonzoUserIdColumn()
     {
         return 'monzo_user_id';
+    }
+
+    /**
+     * Get the attribute name for a monzo user's email.
+     *
+     * @return string
+     */
+    protected function getMonzoEmailColumn()
+    {
+        return 'email';
     }
 }

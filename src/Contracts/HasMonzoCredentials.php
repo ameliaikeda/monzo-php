@@ -43,4 +43,11 @@ interface HasMonzoCredentials
      * @return string|null
      */
     public function getMonzoUserId();
+
+    /**
+     * Get the user's monzo email.
+     *
+     * @return string
+     */
+    public function getMonzoEmail();
 }

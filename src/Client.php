@@ -4,7 +4,6 @@ namespace Amelia\Monzo;
 
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Client as Guzzle;
-use Amelia\Monzo\Util\QueryParams;
 use Amelia\Monzo\Exceptions\MonzoException;
 use Amelia\Monzo\Contracts\Client as ClientContract;
 use Amelia\Monzo\Exceptions\UnexpectedValueException;
@@ -87,19 +86,6 @@ class Client implements ClientContract
         $params = $this->buildQueryParams($query);
 
         return static::API_ENDPOINT . '/' . trim($endpoint, '/') . '?' . $params;
-    }
-
-    /**
-     * Build query parameters for this call.
-     *
-     * @param array $query
-     * @return string
-     */
-    protected function buildQueryParams(array $query)
-    {
-        $params = new QueryParams(array_merge($this->params, $query));
-
-        return $params->build();
     }
 
     /**

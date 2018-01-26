@@ -2,6 +2,8 @@
 
 namespace Amelia\Monzo;
 
+use Amelia\Monzo\Util\QueryParams;
+
 trait UsesQueryParams
 {
     /**
@@ -76,5 +78,18 @@ trait UsesQueryParams
     public function setParams(array $params)
     {
         $this->params = $params;
+    }
+
+    /**
+     * Build query parameters for this call.
+     *
+     * @param array $query
+     * @return string
+     */
+    protected function buildQueryParams(array $query)
+    {
+        $params = new QueryParams(array_merge($this->params, $query));
+
+        return $params->build();
     }
 }

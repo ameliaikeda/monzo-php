@@ -73,6 +73,16 @@ trait UsesTokens
     }
 
     /**
+     * Get the client ID.
+     *
+     * @return string
+     */
+    public function getClientId()
+    {
+        return $this->id;
+    }
+
+    /**
      * Set the client secret.
      *
      * @param string $secret
