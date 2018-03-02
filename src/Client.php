@@ -130,7 +130,7 @@ class Client implements ClientContract
     /**
      * Get a new client instance.
      *
-     * @return \Amelia\Monzo\Client
+     * @return \Amelia\Monzo\Client|\Amelia\Monzo\Contracts\Client
      */
     public function newClient()
     {
