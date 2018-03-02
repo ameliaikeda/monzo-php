@@ -2,8 +2,8 @@
 
 namespace Amelia\Monzo\Api;
 
-use Amelia\Monzo\Models\Pot;
 use Ramsey\Uuid\Uuid;
+use Amelia\Monzo\Models\Pot;
 
 trait Pots
 {

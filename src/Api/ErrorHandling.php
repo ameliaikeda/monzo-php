@@ -6,7 +6,7 @@ use Closure;
 use Amelia\Monzo\Exceptions\InvalidTokenException;
 
 /**
- * Handle common retrying
+ * Handle common retrying.
  *
  * @property \Amelia\Monzo\Client $client
  * @property string|null $token
