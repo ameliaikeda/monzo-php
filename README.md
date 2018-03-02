@@ -1,8 +1,14 @@
-# Monzo PHP bindings
+<p align="center">
+<a href="https://travis-ci.org/ameliaikeda/monzo-php">
+    <img src="https://travis-ci.org/ameliaikeda/monzo-php.svg?branch=master" alt="Build Status">
+</a>
+<a href="https://scrutinizer-ci.com/g/ameliaikeda/monzo-php/?branch=master">
+    <img src="https://scrutinizer-ci.com/g/ameliaikeda/monzo-php/badges/quality-score.png?b=master" alt="Scrutinizer Code Quality">
+</a>
+</p>
+<p align="center"><h2>Monzo PHP Client</h2></p>
+<p align="center">This library allows access to the <a href="https://monzo.com">Monzo</a> API in PHP. This library requires PHP 7.1+.</p>
 
-[![Build Status](https://travis-ci.org/ameliaikeda/monzo-php.svg?branch=master)](https://travis-ci.org/ameliaikeda/monzo-php)
-
-This library allows access to the [Monzo](https://monzo.com) API in PHP. This library requires PHP 7.1+.
 
 ## Installation
 
@@ -12,13 +18,24 @@ composer require amelia/monzo-php
 
 If you don't already have your own access tokens from completing oauth yourself, you'll need to also `composer require laravel/socialite`.
 
-You should set `MONZO_CLIENT_ID` and `MONZO_CLIENT_SECRET` environment variables to values that you get from creating an application at [https://developers.monzo.com](https://developers.monzo.com).
+You should set the following variables in your `.env` (or otherwise):
 
-## Laravel integration (5.4+)
+- `MONZO_CLIENT_ID`
+- `MONZO_CLIENT_SECRET`
+- `MONZO_REDIRECT_URI`
 
-Stick `Amelia\Monzo\MonzoServiceProvider::class` in `app.php`.
+You can create an application at [https://developers.monzo.com](https://developers.monzo.com).
 
-After that, configure the package using `php artisan monzo:install`.
+## Laravel integration
+
+`Amelia\Monzo\MonzoServiceProvider::class` is registered automatically in Laravel 5.5.
+
+A future version of this package will include automatic webhook handling per-user, and full automatic socialite integration.
+
+The environment variables that control these will be:
+
+- `MONZO_WEBHOOKS=true`
+- `MONZO_SOCIALITE=true`
 
 ### Socialite integration
 
@@ -88,14 +105,15 @@ Run `php artisan migrate` to run this.
 ## Usage
 
 **Caveat**
-If not using laravel, you'll need to set up a singleton instance of `Amelia\Monzo\Monzo` and inject an `Amelia\Monzo\Contracts\Client` instance into it, as follows:
+If not using Laravel, you'll need to set up an instance of `Amelia\Monzo\Monzo` and inject an `Amelia\Monzo\Contracts\Client` instance into it, as follows:
 
 ```php
 <?php
 
-$client = Amelia\Monzo\ClientFactory::make(
-    getenv('MONZO_CLIENT_ID'),
-    getenv('MONZO_CLIENT_SECRET')
+$client = new Amelia\Monzo\Client(
+    new GuzzleHttp\Client,
+    getenv('MONZO_CLIENT_ID') ?: null,
+    getenv('MONZO_CLIENT_SECRET') ?: null
 );
 
 $monzo = new Amelia\Monzo\Monzo($client);
@@ -117,7 +135,7 @@ In general, you'll need an access token or a user object.
 ```php
 <?php
 
-$user = App\User::findOrFail($id);
+$user = User::findOrFail($id);
 
 $accounts = $monzo->as($user)->accounts();
 ```
@@ -127,7 +145,7 @@ $accounts = $monzo->as($user)->accounts();
 ```php
 <?php
 
-$user = App\User::findOrFail($id);
+$user = User::findOrFail($id);
 
 $transactions = $monzo->as($user)->transactions('acc_12341243');
 ```
@@ -137,7 +155,7 @@ $transactions = $monzo->as($user)->transactions('acc_12341243');
 ```php
 <?php
 
-$user = App\User::findOrFail($id);
+$user = User::findOrFail($id);
 
 // will query accounts first, then use the default to query transactions.
 $transactions = $monzo->as($user)->transactions();
@@ -148,7 +166,7 @@ $transactions = $monzo->as($user)->transactions();
 ```php
 <?php
 
-$user = App\User::findOrFail($id);
+$user = User::findOrFail($id);
 
 $transactions = $monzo->as($user)->paginate(50)->transactions('acc_12341243');
 ```
@@ -158,7 +176,7 @@ $transactions = $monzo->as($user)->paginate(50)->transactions('acc_12341243');
 ```php
 <?php
 
-$user = App\User::findOrFail($id);
+$user = User::findOrFail($id);
 
 $transactions = $monzo->as($user)
     ->paginate(50)
@@ -171,7 +189,7 @@ $transactions = $monzo->as($user)
 ```php
 <?php
 
-$user = App\User::findOrFail($id);
+$user = User::findOrFail($id);
 
 $balance = $monzo->as($user)->balance();
 ```
