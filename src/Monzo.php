@@ -180,7 +180,7 @@ class Monzo
     /**
      * Set credentials via a user object.
      *
-     * @param \Laravel\Socialite\Two\User|\Amelia\Monzo\MonzoCredentials $user
+     * @param mixed $user
      * @return void
      * @throws \TypeError
      */
@@ -190,12 +190,16 @@ class Monzo
         if ($user instanceof User) {
             static::$defaultToken = $user->token;
             static::$defaultRefreshToken = $user->refreshToken;
-        } // If we're using the monzo interface, we can just use that.
+        }
+
+        // if we're using the monzo interface, we can just use that.
         elseif ($user instanceof HasMonzoCredentials) {
             static::$defaultUser = $user;
             static::$defaultToken = $user->getMonzoAccessToken();
             static::$defaultRefreshToken = $user->getMonzoRefreshToken();
-        } // if we didn't get either, throw a TypeError.
+        }
+
+        // if we didn't get either, throw a TypeError.
         else {
             throw new TypeError(
                 static::class . '::' . __METHOD__ .
