@@ -31,7 +31,7 @@ trait UsesTokens
      * Set the token for this request.
      *
      * @param string $token
-     * @return ClientContract
+     * @return ClientContract|$this
      */
     public function token(string $token)
     {
