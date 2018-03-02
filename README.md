@@ -9,6 +9,9 @@
 <a href="https://styleci.io/repos/82849326">
     <img src="https://styleci.io/repos/82849326/shield?branch=master" alt="">
 </a>
+<a href="https://codeclimate.com/github/ameliaikeda/monzo-php/maintainability">
+    <img src="https://api.codeclimate.com/v1/badges/576fcd402d7bfbe7c043/maintainability">
+</a>
 </p>
 <p align="center">This library allows access to the <a href="https://monzo.com">Monzo</a> API in PHP. This library requires PHP 7.1+.</p>
 
