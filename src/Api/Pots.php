@@ -3,7 +3,7 @@
 namespace Amelia\Monzo\Api;
 
 use Amelia\Monzo\Models\Pot;
-use Amelia\Monzo\Exceptions\MonzoException;
+use Ramsey\Uuid\Uuid;
 
 trait Pots
 {
@@ -14,12 +14,7 @@ trait Pots
      */
     public function pots()
     {
-        $results = $this->withErrorHandling(function () {
-            return $this->client
-                ->newClient()
-                ->token($this->getAccessToken())
-                ->call('GET', 'pots/listV1', [], [], 'pots');
-        });
+        $results = $this->call('GET', 'pots', [], [], 'pots');
 
         return collect($results)->map(function ($item) {
             return new Pot($item, $this);
@@ -30,11 +25,13 @@ trait Pots
      * Get a pot by ID.
      *
      * @param string $id
-     * @return void
+     * @return \Amelia\Monzo\Models\Pot
      */
     public function pot(string $id)
     {
-        throw new MonzoException('Getting a specific pot is not implemented in the dev API yet.');
+        $results = $this->call('GET', "pots/{$id}");
+
+        return new Pot($results, $this);
     }
 
     /**
@@ -43,11 +40,17 @@ trait Pots
      * @param string $id
      * @param int $amount
      * @param null|string $account
-     * @return void
+     * @return \Amelia\Monzo\Models\Pot
      */
     public function addToPot(string $id, int $amount, ?string $account = null)
     {
-        throw new MonzoException('Adding to pots is not implemented in the dev API yet.');
+        $results = $this->call('PUT', "pots/{$id}/deposit", [], [
+            'amount' => $amount,
+            'source_account_id' => $account ?? $this->getAccountId(),
+            'dedupe_id' => (string) Uuid::uuid4(),
+        ]);
+
+        return new Pot($results, $this);
     }
 
     /**
@@ -56,11 +59,17 @@ trait Pots
      * @param string $id
      * @param int $amount
      * @param null|string $account
-     * @return void
+     * @return \Amelia\Monzo\Models\Pot
      */
     public function withdrawFromPot(string $id, int $amount, ?string $account = null)
     {
-        throw new MonzoException('Withdrawing from pots is not implemented in the dev API yet.');
+        $results = $this->call('PUT', "pots/{$id}/withdraw", [], [
+            'amount' => $amount,
+            'destination_account_id' => $account ?? $this->getAccountId(),
+            'dedupe_id' => (string) Uuid::uuid4(),
+        ]);
+
+        return new Pot($results, $this);
     }
 
     /**
@@ -68,21 +77,12 @@ trait Pots
      *
      * @param string $pot
      * @param array $attributes
-     * @return void
+     * @return \Amelia\Monzo\Models\Pot
      */
     public function updatePot(string $pot, array $attributes)
     {
-        throw new MonzoException('Updating pots is not implemented in the Developer API yet.');
-    }
+        $results = $this->call('PATCH', "pots/{$pot}", [], $attributes);
 
-    /**
-     * Delete a given pot.
-     *
-     * @param string $pot
-     * @return void
-     */
-    public function deletePot(string $pot)
-    {
-        throw new MonzoException('Deleting pots is not implemented in the dev API yet.');
+        return new Pot($results, $this);
     }
 }
