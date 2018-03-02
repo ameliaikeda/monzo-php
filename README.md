@@ -1,12 +1,15 @@
+<h1 align="center">Monzo PHP Client</h1>
 <p align="center">
 <a href="https://travis-ci.org/ameliaikeda/monzo-php">
-    <img src="https://travis-ci.org/ameliaikeda/monzo-php.svg?branch=master" alt="Build Status">
+    <img src="https://travis-ci.org/ameliaikeda/monzo-php.svg?branch=master" alt="">
 </a>
 <a href="https://scrutinizer-ci.com/g/ameliaikeda/monzo-php/?branch=master">
-    <img src="https://scrutinizer-ci.com/g/ameliaikeda/monzo-php/badges/quality-score.png?b=master" alt="Scrutinizer Code Quality">
+    <img src="https://scrutinizer-ci.com/g/ameliaikeda/monzo-php/badges/quality-score.png?b=master" alt="">
+</a>
+<a href="https://styleci.io/repos/82849326">
+    <img src="https://styleci.io/repos/82849326/shield?branch=master" alt="">
 </a>
 </p>
-<p align="center"><h2>Monzo PHP Client</h2></p>
 <p align="center">This library allows access to the <a href="https://monzo.com">Monzo</a> API in PHP. This library requires PHP 7.1+.</p>
 
 
