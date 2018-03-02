@@ -5,6 +5,13 @@ namespace Amelia\Monzo\Api;
 use Closure;
 use Amelia\Monzo\Exceptions\InvalidTokenException;
 
+/**
+ * Handle common retrying
+ *
+ * @property \Amelia\Monzo\Client $client
+ * @property string|null $token
+ * @property string|null $refreshToken
+ */
 trait ErrorHandling
 {
     /**
