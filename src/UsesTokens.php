@@ -48,7 +48,7 @@ trait UsesTokens
      */
     public function refresh(string $refreshToken)
     {
-        $result = $this->newClient()->call('POST', 'oauth2/token', null, [], [
+        $result = $this->newClient()->call('POST', 'oauth2/token', [], [
             'client_id' => $this->id,
             'client_secret' => $this->secret,
             'refresh_token' => $refreshToken,
